@@ -1,5 +1,4 @@
 using UnityEngine;
-using static MazeGenerator;
 
 public class MazeSpawner : MonoBehaviour
 {
@@ -14,7 +13,10 @@ public class MazeSpawner : MonoBehaviour
         {
             for (int y = 0; y < maze.GetLength(1); y++)
             {
-                Instantiate(_mazeCell, new Vector2(x, y), Quaternion.identity);
+                Cell cell = Instantiate(_mazeCell, new Vector2(x, y), Quaternion.identity).GetComponent<Cell>();
+
+                cell.LeftWall.SetActive(maze[x, y].LeftWall);
+                cell.ButtomWall.SetActive(maze[x, y].ButtomWall);
             }
         }
     }

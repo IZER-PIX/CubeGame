@@ -43,29 +43,29 @@ public class MazeGenerator
 
         do
         {
-            List<MazeCell> notVisited = new List<MazeCell>();
+            var notVisited = new List<MazeCell>();
 
             var x = current.X;
             var y = current.Y;
 
             if (x > 0 && !maze[x - 1, y].Visited)
-                notVisited.Add(maze[current.X - 1, current.Y]);
-            else if (y > 0 && !maze[x, y - 1].Visited)
+                notVisited.Add(maze[x - 1, y]);
+            if (y > 0 && !maze[x, y - 1].Visited)
                 notVisited.Add(maze[x, y - 1]);
-            else if (x < Width - 2 && !maze[x + 1, y].Visited)
+            if (x < Width - 2 && !maze[x + 1, y].Visited)
                 notVisited.Add(maze[x + 1, y]);
-            else if (y < Height - 2 && !maze[x, y + 1].Visited)
+            if (y < Height - 2 && !maze[x, y + 1].Visited)
                 notVisited.Add(maze[x, y + 1]);
 
             if(notVisited.Count > 0)
             {
-                var notVisistedCells = notVisited.Count;
-                var chosen = notVisited[UnityEngine.Random.Range(0, notVisistedCells)];
+                var chosen = notVisited[UnityEngine.Random.Range(0, notVisited.Count)];
 
                 RemoveWall(current, chosen);
+
                 chosen.Visited = true;
-                current = chosen;
                 stack.Push(current);
+                current = chosen;
             }
             else
             {
@@ -77,20 +77,19 @@ public class MazeGenerator
 
     private void RemoveWall(MazeCell current, MazeCell chosen)
     {
-        if (current.X > chosen.X)
+        if (current.X == chosen.X)
         {
             if (current.Y > chosen.Y)
                 current.ButtomWall = false;
             else
-                chosen.ButtomWall = true;
+                chosen.ButtomWall = false;
         }
         else
         {
-            if(current.Y > chosen.Y)
+            if (current.X > chosen.X)
                 current.LeftWall = false;
             else
-                chosen.LeftWall = true;
+                chosen.LeftWall = false;
         }
-
     }
 }

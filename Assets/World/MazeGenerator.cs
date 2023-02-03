@@ -58,7 +58,7 @@ public class MazeGenerator
         for (int y = 0; y < maze.GetLength(1); y++)
         {
             if (maze[Width - 2, y].DistanceFromStart > furthest.DistanceFromStart)
-                furthest = maze[Width - 2, y];
+                furthest = maze[Width, y];
             if (maze[0, y].DistanceFromStart > furthest.DistanceFromStart)
                 furthest = maze[0, y];
         }
